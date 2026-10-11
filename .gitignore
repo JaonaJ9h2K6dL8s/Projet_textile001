@@ -66,3 +66,9 @@ npm-reinstall.log
 npm-tsx.log
 tsconfig.tsbuildinfo
 
+# Artefacts de build Electron
+c/
+win-unpacked/
+release/
+*.asar
+
