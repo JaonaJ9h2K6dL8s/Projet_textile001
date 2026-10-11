@@ -5,24 +5,33 @@ import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import type { ReactNode } from 'react';
 import { useUiStore } from '@/store/ui-store';
+import type { SessionUser } from '@/types/auth';
 import SidebarContent from './sidebar-content';
+import ServerStatusBadge from './server-status-badge';
 import TopBar, { DRAWER_WIDTH } from './top-bar';
 
 /**
- * Coquille applicative : barre latérale responsive
- * (permanente sur grand écran, tiroir sur mobile),
- * barre supérieure et zone de contenu principale.
+ * Coquille applicative authentifiée : barre latérale responsive
+ * (permanente sur grand écran, tiroir sur mobile), barre supérieure
+ * avec l'identité de l'utilisateur et zone de contenu principale.
  */
-export default function AppShell({ children }: { children: ReactNode }) {
+export default function AppShell({
+  user,
+  children,
+}: {
+  user: SessionUser;
+  children: ReactNode;
+}) {
   const mobileNavOpen = useUiStore((state) => state.mobileNavOpen);
   const closeMobileNav = useUiStore((state) => state.closeMobileNav);
 
   return (
     <Box className="flex min-h-screen">
-      <TopBar />
+      <ServerStatusBadge />
+      <TopBar user={user} />
       <Box
         component="nav"
-        aria-label="Modules"
+        aria-label="Navigation"
         sx={{ width: { md: DRAWER_WIDTH }, flexShrink: { md: 0 } }}
       >
         <Drawer
@@ -35,7 +44,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
             '& .MuiDrawer-paper': { width: DRAWER_WIDTH },
           }}
         >
-          <SidebarContent />
+          <SidebarContent roleCode={user.roleCode} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -49,7 +58,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
             },
           }}
         >
-          <SidebarContent />
+          <SidebarContent roleCode={user.roleCode} />
         </Drawer>
       </Box>
       <Box component="main" className="min-w-0 flex-1">

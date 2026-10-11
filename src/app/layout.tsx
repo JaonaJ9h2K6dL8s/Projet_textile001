@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import AppShell from '@/components/layout/app-shell';
 import ThemeRegistry from '@/components/theme/theme-registry';
 import '@/styles/globals.css';
 
@@ -18,9 +17,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <ThemeRegistry>
-          <AppShell>{children}</AppShell>
-        </ThemeRegistry>
+        <ThemeRegistry>{children}</ThemeRegistry>
       </body>
     </html>
   );

@@ -8,7 +8,9 @@ import Database from 'better-sqlite3';
  * lors du rechargement à chaud (HMR) en développement.
  */
 
-const DEFAULT_DB_PATH = './data/jo-management.db';
+// Base existante de l'application (étape 1). Surcharge possible via
+// la variable d'environnement DATABASE_PATH (voir .env.example).
+const DEFAULT_DB_PATH = './data/jo-test-admin.db';
 
 interface GlobalWithDb {
   __joManagementDb?: Database.Database;
